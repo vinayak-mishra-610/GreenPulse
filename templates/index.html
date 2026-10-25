@@ -1,0 +1,499 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0b100e">
+    <title>GreenPulse | Sustainability Intelligence</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="topbar">
+        <a class="brand" href="/">
+            <span class="brand-icon">✳</span>
+            GreenPulse
+        </a>
+
+        <nav class="nav-links">
+            <a class="nav-active" href="#overview">Overview</a>
+            <a href="#trends">Energy trends</a>
+            <a href="#facilities">Facilities</a>
+        </nav>
+
+        <div class="workspace-status">
+            <span class="status-dot"></span>
+            Demo workspace
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- Hero -->
+        <section class="hero" id="overview">
+            <div class="hero-copy">
+                <p class="eyebrow">SUSTAINABILITY INTELLIGENCE / 01</p>
+                <h1>Measure impact.<br><span>Move forward.</span></h1>
+                <p class="subtitle">
+                    A clearer view of your organization's energy consumption
+                    and estimated carbon footprint.
+                </p>
+
+                <div class="hero-meta">
+                    <span class="meta-pill">● Synthetic demo data</span>
+                    <span class="meta-text">
+                        {{ start_date if start_date else min_date }}
+                        – {{ end_date if end_date else max_date }}
+                    </span>
+                </div>
+            </div>
+
+            <div class="hero-mark" aria-hidden="true">
+                <div class="orbit orbit-one"></div>
+                <div class="orbit orbit-two"></div>
+                <div class="orbit-core">GP<span>+</span></div>
+                <span class="orbit-label">DATA FOR A<br>BETTER FUTURE</span>
+            </div>
+        </section>
+
+        <!-- Filters -->
+        <section class="filter-panel" id="filters">
+            <div class="filter-heading">
+                <div>
+                    <p class="eyebrow">DATA EXPLORER</p>
+                    <h2>Filter your view</h2>
+                </div>
+                <span class="muted">Refine dashboard results</span>
+            </div>
+
+            <form action="/" method="GET" class="filter-form">
+
+                <div class="filter-field">
+                    <label for="facility">Facility</label>
+                    <select id="facility" name="facility">
+                        <option value="All"
+                            {% if selected_facility == "All" %}selected{% endif %}>
+                            All facilities
+                        </option>
+
+                        {% for name in facility_options %}
+                        <option value="{{ name }}"
+                            {% if selected_facility == name %}selected{% endif %}>
+                            {{ name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="filter-field">
+                    <label for="start_date">Start date</label>
+                    <input
+                        type="date"
+                        id="start_date"
+                        name="start_date"
+                        value="{{ start_date }}"
+                        min="{{ min_date }}"
+                        max="{{ max_date }}">
+                </div>
+
+                <div class="filter-field">
+                    <label for="end_date">End date</label>
+                    <input
+                        type="date"
+                        id="end_date"
+                        name="end_date"
+                        value="{{ end_date }}"
+                        min="{{ min_date }}"
+                        max="{{ max_date }}">
+                </div>
+
+                <div class="filter-actions">
+                    <button type="submit" class="filter-button">
+                        Apply filters <span>↗</span>
+                    </button>
+
+                    <a href="/" class="reset-button">Reset</a>
+                </div>
+
+            </form>
+            
+            <a
+                class="export-button"
+                href="{{ url_for(
+                    'export_csv',
+                    facility=selected_facility,
+                    start_date=start_date,
+                    end_date=end_date
+                ) }}"
+            >
+                ↓ Download CSV Report
+            </a>
+
+
+            <p class="filter-note">
+                Dates are filtered by month because the dataset is
+                organized into monthly energy records.
+            </p>
+        </section>
+
+        <!-- Performance overview -->
+        <section class="section-heading">
+            <div>
+                <p class="eyebrow">EXECUTIVE SUMMARY</p>
+                <h2>Performance overview</h2>
+            </div>
+            <span class="muted">
+                {% if selected_facility == "All" %}
+                    All facilities
+                {% else %}
+                    {{ selected_facility }}
+                {% endif %}
+                · Filtered records
+            </span>
+        </section>
+
+                
+        
+        <section class="metrics">
+            <article class="metric-card">
+                <h3>Total Electricity Consumption</h3>
+                <p>{{ "{:,.0f}".format(total_energy) }}
+                    <small>kWh</small>
+                </p>
+            </article>
+
+            <article class="metric-card">
+                <h3>Estimated Emissions</h3>
+                <p>{{ "{:,.0f}".format(total_emissions) }}
+                    <small>kg CO₂e</small>
+                </p>
+            </article>
+
+            <article class="metric-card">
+                <h3>Facilities Tracked</h3>
+                <p>{{ facility_count }}</p>
+            </article>
+
+            <article class="metric-card">
+                <h3>Average Monthly Consumption</h3>
+                <p>{{ "{:,.0f}".format(average_monthly_consumption) }}
+                    <small>kWh/month</small>
+                </p>
+            </article>
+
+            <article class="metric-card">
+                <h3>Emissions Intensity</h3>
+                <p>{{ "{:.3f}".format(emissions_intensity) }}
+                    <small>kg CO₂e/kWh</small>
+                </p>
+            </article>
+            <article class="metric-card">
+                <h3>Emissions Target Progress</h3>
+
+                <p>{{ emissions_target_status }}</p>
+
+                <small>
+                    Latest month:
+                    {{ "{:,.0f}".format(latest_emissions) }} kg CO₂e
+                </small>
+
+                <br>
+
+                <small>
+                    Change from baseline:
+                    {{ "{:+.1f}".format(emissions_reduction_pct) }}%
+                </small>
+            </article>
+        </section>
+        <!-- Sustainability methodology note -->
+        <section class="quality-note methodology-note">
+            <span class="facility-dot"></span>
+            <p>
+                <strong>Methodology:</strong>
+                Estimated emissions are calculated using an illustrative
+                factor of 0.40 kg CO₂e per kWh. The 10% reduction target
+                is a demo benchmark based on the first month in the
+                current selection, not an official sustainability target.
+                Actual emissions depend on the applicable electricity
+                grid emission factor.
+            </p>
+        </section>
+        <section class="insights-section">
+            <div class="section-heading">
+                <h2>🌱 Sustainability Insights</h2>
+                <p>Automatically generated from your selected data.</p>
+            </div>
+
+            <div class="insights-grid">
+                {% for insight in insights %}
+                <article class="insight-card {{ insight.type }}">
+                    <h3>{{ insight.title }}</h3>
+                    <p>{{ insight.message }}</p>
+                </article>
+                {% endfor %}
+            </div>
+        </section>
+        <section class="ranking-section">
+            <div class="section-heading">
+                <h2>🏢 Facility Performance Ranking</h2>
+                <p>Facilities ranked by total electricity consumption.</p>
+            </div>
+
+            {% if facility_ranking %}
+            <div class="ranking-table-wrapper">
+                <table class="ranking-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Facility</th>
+                            <th>Electricity (kWh)</th>
+                            <th>Emissions (kg CO₂e)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for facility in facility_ranking %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ facility.facility }}</td>
+                            <td>{{ "{:,.2f}".format(facility.electricity_kwh) }}</td>
+                            <td>{{ "{:,.2f}".format(facility.emissions_kg) }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <p>No facility data is available for the selected filters.</p>
+            {% endif %}
+        </section>
+        
+        <section class="summary-section">
+            <div class="section-heading">
+                <h2>📊 Sustainability Performance Summary</h2>
+                <p>A business-focused overview of the selected reporting period.</p>
+            </div>
+
+            <div class="summary-grid">
+                <article class="summary-card">
+                    <h3>Monthly Energy Trend</h3>
+
+                    <p class="trend-value
+                        {% if trend_direction == 'increased' %}trend-warning
+                        {% elif trend_direction == 'decreased' %}trend-positive
+                        {% elif trend_direction == 'stable' %}trend-neutral
+                        {% else %}trend-neutral{% endif %}">
+                        {% if trend_change_pct is not none %}
+                            {% if trend_change_pct > 0 %}↑
+                            {% elif trend_change_pct < 0 %}↓
+                            {% else %}→{% endif %}
+                            {{ "%.1f"|format(trend_change_pct|abs) }}%
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </p>
+
+                    <p>{{ trend_message }}</p>
+                    <small>Based on the last two recorded months.</small>
+                </article>
+
+                <article class="summary-card">
+                    <h3>Executive Summary</h3>
+                    <p>{{ sustainability_summary }}</p>
+                </article>
+            </div>
+        </section>
+
+
+
+
+
+        <!-- Charts -->
+        <section class="section-heading chart-heading" id="trends">
+            <div>
+                <p class="eyebrow">ENERGY MONITORING</p>
+                <h2>Understand your consumption</h2>
+            </div>
+            <span class="muted">Interactive charts · Hover for details</span>
+        </section>
+
+        
+        <section class="charts">
+            <article class="chart-card">
+                <div class="chart-title">
+                    <div>
+                        <h3>Monthly consumption</h3>
+                        <p>Electricity use for the selected facilities and dates</p>
+                    </div>
+                    <span class="chart-symbol">↗</span>
+                </div>
+                <div class="chart-content">
+                    {{ monthly_chart | safe }}
+                </div>
+            </article>
+
+            <article class="chart-card">
+                <div class="chart-title">
+                    <div>
+                        <h3>Facility comparison</h3>
+                        <p>Energy consumption for the current selection</p>
+                    </div>
+                    <span class="chart-symbol">▥</span>
+                </div>
+                <div class="chart-content">
+                    {{ facility_chart | safe }}
+                </div>
+            </article>
+
+            <article class="chart-card">
+                <div class="chart-title">
+                    <div>
+                        <h3>Monthly emissions</h3>
+                        <p>
+                            Estimated CO₂e emissions and illustrative
+                            10% reduction target
+                        </p>
+                    </div>
+                    <span class="chart-symbol">↘</span>
+                </div>
+
+                <div class="chart-content">
+                    {{ emissions_chart | safe }}
+                </div>
+
+                <p class="muted">
+                    Demo target: {{ "{:,.2f}".format(emissions_target) }}
+                    kg CO₂e per month. The target baseline changes with
+                    the selected date range and facility.
+                </p>
+            </article>
+        </section>
+
+
+        <!-- Facility table -->
+        <section class="facility-section" id="facilities">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">FACILITY PERFORMANCE</p>
+                    <h2>Energy breakdown</h2>
+                </div>
+                <span class="muted">{{ facility_count }} facilities</span>
+            </div>
+
+            <div class="facility-table-wrap">
+                <table class="facility-table">
+                    <thead>
+                        <tr>
+                            
+                            <th>Facility</th>
+                            <th>Electricity consumption</th>
+                            <th>Estimated emissions</th>
+                            <th>Share of energy</th>
+                            <th>Consumption indicator</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for facility in facilities %}
+                        <tr>
+                            <td>
+                                <span class="facility-dot"></span>
+                                {{ facility.facility }}
+                            </td>
+                            <td>
+                                {{ "{:,.0f}".format(facility.electricity_kwh) }} kWh
+                            </td>
+                            <td>
+                                {{ "{:,.0f}".format(facility.emissions_kg) }} kg CO₂e
+                            </td>
+                            <td>
+                                <div class="share-cell">
+                                    <div class="share-track">
+                                        <div class="share-fill"
+                                             style="width: {{ (facility.electricity_kwh / total_energy * 100) if total_energy else 0 }}%">
+                                        </div>
+                                    </div>
+                                    <span>
+                                        {{ "{:.1f}".format(facility.electricity_kwh / total_energy * 100 if total_energy else 0) }}%
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="performance-badge {{ facility.performance_level }}">
+                                    {{ facility.performance_status }}
+                                </span>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="5">
+                                No records match these filters.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <!-- Data quality panel -->
+        <section class="facility-section" id="data-quality">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">DATA RELIABILITY</p>
+                    <h2>Data quality</h2>
+                    <p class="muted">
+                        Validation and cleaning summary for the source dataset.
+                    </p>
+                </div>
+
+                <span class="quality-status">
+                    {{ data_quality_status }}
+                </span>
+            </div>
+
+            <div class="kpi-grid quality-grid">
+                <article class="kpi-card">
+                    <p class="kpi-label">Records analyzed</p>
+                    <h3>{{ "{:,}".format(records_analyzed) }}</h3>
+                    <p class="muted">After current filters</p>
+                </article>
+
+                <article class="kpi-card">
+                    <p class="kpi-label">Source records</p>
+                    <h3>{{ "{:,}".format(data_quality.original_rows) }}</h3>
+                    <p class="muted">Before cleaning</p>
+                </article>
+
+                <article class="kpi-card">
+                    <p class="kpi-label">Records removed</p>
+                    <h3>{{ "{:,}".format(data_quality.removed_rows) }}</h3>
+                    <p class="muted">Invalid or duplicate rows</p>
+                </article>
+
+                <article class="kpi-card">
+                    <p class="kpi-label">Duplicate rows</p>
+                    <h3>{{ "{:,}".format(data_quality.duplicate_rows) }}</h3>
+                    <p class="muted">Duplicates detected</p>
+                </article>
+            </div>
+
+            <div class="quality-note">
+                <span class="facility-dot"></span>
+                <p>
+                    Data is checked for invalid dates, non-numeric energy
+                    readings, missing facility names, negative consumption
+                    values, and duplicate records.
+                </p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <a class="brand footer-brand" href="/">✳ GreenPulse</a>
+            <p>Built with Python, Flask, Pandas and Plotly.</p>
+            <p>Demo data · Emissions estimates are illustrative.</p>
+        </footer>
+
+    </main>
+</body>
+</html>
