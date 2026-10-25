@@ -3,7 +3,7 @@
                 **Turn energy data into actionable sustainability insights.**
 ## Dashboard Preview
 
-![GreenPulse dashboard overview](screenshots\filter.png)
+![GreenPulse dashboard overview](screenshots/filter.png)
 GreenPulse is a local-first sustainability analytics dashboard built with Python and Flask. It helps organizations explore electricity consumption, estimate associated carbon emissions, compare facility performance, and monitor illustrative reduction targets through interactive visualizations.
 
 The project demonstrates how data analytics and business intelligence can support sustainability monitoring aligned with the United Nations Sustainable Development Goals (SDGs).
