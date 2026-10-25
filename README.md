@@ -13,7 +13,7 @@ The project demonstrates how data analytics and business intelligence can suppor
 
 ### 1. KPI Overview
 
-![GreenPulse KPI overview](screenshots\kpi.png)
+![GreenPulse KPI overview](screenshots/kpi.png)
 
 ### 2. Energy Consumption Analysis
 
