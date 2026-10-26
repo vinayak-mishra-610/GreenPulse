@@ -1,20 +1,121 @@
-
 month,facility,electricity_kwh
-2026-01,Head Office,12500
-2026-01,Manufacturing Plant,28500
-2026-01,Warehouse,8200
-2026-02,Head Office,11800
-2026-02,Manufacturing Plant,27200
-2026-02,Warehouse,7900
-2026-03,Head Office,13200
-2026-03,Manufacturing Plant,30100
-2026-03,Warehouse,8600
-2026-04,Head Office,12900
-2026-04,Manufacturing Plant,29400
-2026-04,Warehouse,8400
-2026-05,Head Office,12100
-2026-05,Manufacturing Plant,28100
-2026-05,Warehouse,8100
-2026-06,Head Office,11500
-2026-06,Manufacturing Plant,26800
-2026-06,Warehouse,7600
+2025-01,Manufacturing Plant,28100
+2025-01,Head Office,11200
+2025-01,Warehouse,7600
+2025-01,Research Center,9400
+2025-01,Retail Store North,6800
+2025-01,Retail Store South,7200
+2025-01,Distribution Center,15400
+2025-01,Data Center,22100
+2025-01,Training Center,5100
+2025-01,Regional Office,8300
+2025-02,Manufacturing Plant,26900
+2025-02,Head Office,10800
+2025-02,Warehouse,7300
+2025-02,Research Center,9100
+2025-02,Retail Store North,6500
+2025-02,Retail Store South,6900
+2025-02,Distribution Center,14800
+2025-02,Data Center,21500
+2025-02,Training Center,4900
+2025-02,Regional Office,8000
+2025-03,Manufacturing Plant,29400
+2025-03,Head Office,11600
+2025-03,Warehouse,7900
+2025-03,Research Center,9800
+2025-03,Retail Store North,7100
+2025-03,Retail Store South,7500
+2025-03,Distribution Center,16100
+2025-03,Data Center,22900
+2025-03,Training Center,5300
+2025-03,Regional Office,8500
+2025-04,Manufacturing Plant,30700
+2025-04,Head Office,12400
+2025-04,Warehouse,8300
+2025-04,Research Center,10300
+2025-04,Retail Store North,7600
+2025-04,Retail Store South,8000
+2025-04,Distribution Center,16900
+2025-04,Data Center,24100
+2025-04,Training Center,5600
+2025-04,Regional Office,9000
+2025-05,Manufacturing Plant,33200
+2025-05,Head Office,13700
+2025-05,Warehouse,9100
+2025-05,Research Center,11200
+2025-05,Retail Store North,8300
+2025-05,Retail Store South,8700
+2025-05,Distribution Center,18300
+2025-05,Data Center,25800
+2025-05,Training Center,6200
+2025-05,Regional Office,9700
+2025-06,Manufacturing Plant,36100
+2025-06,Head Office,15100
+2025-06,Warehouse,9800
+2025-06,Research Center,12100
+2025-06,Retail Store North,9100
+2025-06,Retail Store South,9500
+2025-06,Distribution Center,19800
+2025-06,Data Center,27600
+2025-06,Training Center,6900
+2025-06,Regional Office,10500
+2025-07,Manufacturing Plant,37800
+2025-07,Head Office,15800
+2025-07,Warehouse,10400
+2025-07,Research Center,12600
+2025-07,Retail Store North,9600
+2025-07,Retail Store South,10100
+2025-07,Distribution Center,20700
+2025-07,Data Center,28900
+2025-07,Training Center,7300
+2025-07,Regional Office,11000
+2025-08,Manufacturing Plant,36900
+2025-08,Head Office,15400
+2025-08,Warehouse,10100
+2025-08,Research Center,12300
+2025-08,Retail Store North,9300
+2025-08,Retail Store South,9800
+2025-08,Distribution Center,20300
+2025-08,Data Center,28400
+2025-08,Training Center,7100
+2025-08,Regional Office,10800
+2025-09,Manufacturing Plant,34100
+2025-09,Head Office,14200
+2025-09,Warehouse,9500
+2025-09,Research Center,11600
+2025-09,Retail Store North,8700
+2025-09,Retail Store South,9100
+2025-09,Distribution Center,19000
+2025-09,Data Center,26600
+2025-09,Training Center,6600
+2025-09,Regional Office,10100
+2025-10,Manufacturing Plant,31800
+2025-10,Head Office,13100
+2025-10,Warehouse,8800
+2025-10,Research Center,10800
+2025-10,Retail Store North,8000
+2025-10,Retail Store South,8400
+2025-10,Distribution Center,17600
+2025-10,Data Center,25100
+2025-10,Training Center,6000
+2025-10,Regional Office,9400
+2025-11,Manufacturing Plant,29600
+2025-11,Head Office,12000
+2025-11,Warehouse,8100
+2025-11,Research Center,10100
+2025-11,Retail Store North,7400
+2025-11,Retail Store South,7800
+2025-11,Distribution Center,16500
+2025-11,Data Center,23700
+2025-11,Training Center,5500
+2025-11,Regional Office,8800
+2025-12,Manufacturing Plant,28800
+2025-12,Head Office,11500
+2025-12,Warehouse,7800
+2025-12,Research Center,9700
+2025-12,Retail Store North,7000
+2025-12,Retail Store South,7400
+2025-12,Distribution Center,15900
+2025-12,Data Center,23100
+2025-12,Training Center,5200
+2025-12,Regional Office,8500
